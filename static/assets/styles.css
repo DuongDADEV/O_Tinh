@@ -238,3 +238,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   html { scroll-behavior: auto; }
   .btn { transition: none; }
 }
+
+/* Trang chính sách */
+.policy-sec + .policy-sec { margin-top: 24px; }
+.policy h2 { font-size: 1.25rem; margin: 0 0 8px; }
+.policy p { margin: 0 0 10px; }

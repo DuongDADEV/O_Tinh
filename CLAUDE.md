@@ -45,7 +45,7 @@ Thân thiện, hơi hoạt hình, màu nhẹ, tạo thiện cảm. Bám theo 3 �
 4. **Trang chi tiết** `/san-pham/{slug}` — ảnh lớn, mô tả, `benefits`, `includes`, **`limits` (bắt buộc hiển thị)**, giá, nút "Xem file mẫu" (khi có `demoUrl`) và "Mua ngay".
 5. **Combo** — đọc từ `bundles`, hiện số tiền tiết kiệm so với mua lẻ.
 6. **Cách mua 3 bước** — Chọn mẫu → Quét QR → Nhận link qua email trong vài phút.
-7. **Cam kết minh bạch** — mua 1 lần không phí tháng; file nằm trong Google Drive của khách, Ô Tính không xem được dữ liệu; mỗi mẫu ghi rõ giới hạn; hỗ trợ qua Zalo; chính sách hoàn tiền (chủ thương hiệu sẽ cung cấp nội dung).
+7. **Cam kết minh bạch** — mua 1 lần không phí tháng; file nằm trong Google Drive của khách, Ô Tính không xem được dữ liệu; mỗi mẫu ghi rõ giới hạn; hỗ trợ qua Zalo; mục "Chính sách hoàn tiền" tóm tắt 3 dòng và dẫn tới trang `/chinh-sach-hoan-tien` (nội dung ở mục 10).
 8. **FAQ** — dùng trên điện thoại được không · cần tài khoản Google không · nhận file thế nào · không nhận được email thì làm sao · có hoàn tiền không.
 9. **Footer** — liên hệ, TikTok, chính sách, thông tin chủ shop.
 
@@ -113,6 +113,10 @@ Khách bấm "Mua ngay"
 
 ### Mẫu email cảm ơn
 
+Khách tự tạo bản sao: link giao hàng là link mở file gốc (quyền Người xem), khách bấm "Tạo bản sao" để file thuộc Google Drive của họ. Không chuyển quyền sở hữu, không gửi file đích danh từ tài khoản chủ shop.
+
+Email phải có **nút bấm nổi bật** ở đầu, không đặt link giữa đoạn văn. Dùng hình ảnh hướng dẫn 2 bước đính kèm (`images/guide-tao-ban-sao.png`, chờ chủ shop chụp màn hình thật).
+
 ```
 Tiêu đề: Ô Tính gửi bạn mẫu {Tên sản phẩm} 🎉
 
@@ -120,14 +124,22 @@ Chào {Họ tên},
 
 Cảm ơn bạn đã mua {Tên sản phẩm} (đơn #{orderCode}, {Số tiền}đ).
 
-Bấm vào link dưới đây, chọn "Tạo bản sao" là file nằm trong Google Drive của bạn, dùng được ngay:
-👉 {deliveryUrl}
+[ NÚT: Mở mẫu và tạo bản sao ]  → {deliveryUrl}
+
+Làm 2 bước:
+1. Bấm nút trên, rồi bấm "Tạo bản sao" ở góc trên bên phải.
+2. Bản sao sẽ nằm trong Google Drive của bạn, dùng được ngay.
 
 Mẹo: mở tab "Bắt đầu" trong file để xem hướng dẫn 3–4 bước.
+Không thấy email? Kiểm tra mục Quảng cáo hoặc Spam.
 
 Cần hỗ trợ, bạn nhắn Zalo {số Zalo} hoặc trả lời email này.
 Ô Tính – Mẫu Google Sheets làm sẵn. Mở ra là dùng.
 ```
+
+**Trang cảm ơn `/cam-on`** dùng đúng nút và 2 bước trên, để khách có thể tạo bản sao ngay sau khi thanh toán, không cần chờ email.
+
+Lưu ý: `deliveryUrl` không được đưa vào `products.json` hay HTML tĩnh. Trang `/cam-on` chỉ lấy link sau khi đơn đã ở trạng thái "Đã thanh toán", thông qua Apps Script với `orderCode` trên URL và kiểm tra đơn đó đã thanh toán. Nếu chưa thanh toán, hiện "Đang chờ xác nhận thanh toán, thử lại sau 1 phút".
 
 ## 7. Quy trình khi có sản phẩm mới
 
@@ -148,3 +160,69 @@ Cần hỗ trợ, bạn nhắn Zalo {số Zalo} hoặc trả lời email này.
 ## 9. Ghi chú về ảnh
 
 Ảnh trong `images/` là **ảnh minh hoạ** dựng lại theo bố cục và màu thật của từng file, số liệu lấy từ dữ liệu mẫu trong file. Trang chi tiết nên có thêm ảnh chụp màn hình thật hoặc GIF thao tác khi chủ shop quay xong video.
+
+## 10. Chính sách hoàn tiền và điều khoản (nội dung cho trang)
+
+Đây là **nội dung chính thức**. Khi dựng trang `/chinh-sach-hoan-tien`, sao chép nguyên văn phần trong khung dưới, không tự viết lại. Chỉ thay các chỗ `{…}` bằng dữ liệu thật; nếu chưa có dữ liệu thì ẩn dòng đó, không để trống hoặc hiện chữ `{…}`.
+
+Nguồn điền:
+- `{ngày cập nhật}` lấy từ `updatedAt` trong `products.json`.
+- `{số Zalo}` và `{email hỗ trợ}` lấy từ `brand.zalo` và `brand.email`. Hiện đang `null`: nếu vẫn null khi build, thay bằng "qua nút Zalo nổi trên trang".
+- `{tên chủ shop}` và `{địa chỉ}` lấy từ trang Thông tin chủ shop, chờ chủ shop cung cấp.
+
+Trang này được liên kết từ footer, từ mục "Cam kết minh bạch" và từ FAQ "có hoàn tiền không?".
+
+```
+# Chính sách hoàn tiền — Ô Tính
+
+Cập nhật: {ngày cập nhật}. Áp dụng cho mọi đơn mua mẫu Google Sheets trên Ô Tính.
+
+## 1. Sản phẩm là file kỹ thuật số
+
+Sau khi bạn tạo bản sao, file thuộc Google Drive của bạn. Ô Tính không thể thu hồi file như hàng hoá vật lý, nên chính sách hoàn tiền dưới đây được xây dựng theo đặc thù đó.
+
+## 2. Các trường hợp được hoàn tiền 100%
+
+- Không nhận được link giao file sau 24 giờ kể từ khi thanh toán thành công (đã kiểm tra cả mục Quảng cáo/Spam), và Ô Tính không gửi lại được trong 2 ngày làm việc.
+- File không mở được hoặc lỗi khiến bạn không dùng được, và Ô Tính không khắc phục được trong 3 ngày làm việc kể từ khi bạn báo.
+- Mẫu thiếu tính năng đã liệt kê trong mục "Bao gồm" trên trang chi tiết tại thời điểm bạn mua.
+
+## 3. Đổi sang mẫu khác
+
+Nếu bạn mua nhầm và **chưa tạo bản sao**, nhắn Ô Tính trong 7 ngày kể từ khi thanh toán để đổi sang mẫu khác. Nếu mẫu mới giá cao hơn, bạn trả thêm phần chênh lệch. Nếu giá thấp hơn, Ô Tính hoàn phần chênh lệch.
+
+## 4. Các trường hợp không hoàn tiền
+
+- Bạn đã tạo bản sao, file đúng như mô tả, nhưng không còn nhu cầu dùng.
+- Lỗi phát sinh do bạn tự sửa công thức, xoá hoặc đổi cấu trúc bảng làm ảnh hưởng phần tự tính. Ô Tính vẫn sẵn lòng hướng dẫn khôi phục.
+- Yêu cầu sau 7 ngày kể từ khi nhận link giao file. Riêng các trường hợp ở mục 2, thời hạn tính từ ngày bạn phát hiện lỗi hoặc ngày đáng lẽ nhận được link.
+
+## 5. Cách yêu cầu hoàn tiền
+
+Gửi email {email hỗ trợ} hoặc nhắn Zalo {số Zalo} kèm:
+- Mã đơn (dạng #số, có trong email xác nhận)
+- Họ tên và email đã dùng khi mua
+- Mô tả lỗi, kèm ảnh chụp màn hình nếu có
+
+Ô Tính phản hồi trong 2 ngày làm việc.
+
+## 6. Thời gian hoàn tiền
+
+Trong 7 ngày làm việc kể từ khi xác nhận, Ô Tính hoàn tiền về đúng tài khoản hoặc phương thức bạn đã dùng để thanh toán. Thời gian tiền về tới tài khoản còn tuỳ ngân hàng.
+
+## 7. Quyền lợi theo pháp luật
+
+Chính sách này không làm mất các quyền bạn có theo Luật Bảo vệ quyền lợi người tiêu dùng và Nghị định về thương mại điện tử hiện hành. Khi có tranh chấp, Ô Tính ưu tiên thương lượng với bạn. Nếu không thoả thuận được, bạn có quyền khiếu nại tới cơ quan quản lý về tiêu dùng hoặc cơ quan có thẩm quyền.
+
+## 8. Quyền sử dụng file
+
+File mẫu thuộc Ô Tính. Sau khi mua, bạn được dùng cho mục đích cá nhân hoặc nội bộ đơn vị của mình. Không bán lại, không chia sẻ công khai file gốc hay bản sao của người khác.
+
+## 9. Liên hệ
+
+Chủ shop: {tên chủ shop}. Địa chỉ: {địa chỉ}. Email: {email hỗ trợ}. Zalo: {số Zalo}.
+```
+
+**Lưu ý trước khi công bố:** nội dung này là bản tiêu chuẩn, không phải tư vấn pháp lý. Chủ shop cần đọc lại, điền thông tin thật và nên tham khảo luật sư hoặc cơ quan tư vấn về thương mại điện tử trước khi đăng. Trang cũng cần có **Chính sách bảo mật** (cho biết thu thập họ tên, email, SĐT, dùng để làm gì và lưu ở đâu), vì form mua hàng có thu thập thông tin cá nhân.
+
+Khi chủ shop chốt nội dung, cập nhật lại mục này và ghi `updatedAt` mới trong `products.json`.

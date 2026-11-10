@@ -109,7 +109,7 @@ const footer = `
     <div>
       <h3>Thông tin</h3>
       <ul class="plain">
-        <li><a href="/#hoan-tien">Chính sách hoàn tiền</a></li>
+        <li><a href="/chinh-sach-hoan-tien/">Chính sách hoàn tiền</a></li>
         <li><a href="/#faq">Câu hỏi thường gặp</a></li>
         <li class="muted">Thông tin chủ shop: đang cập nhật</li>
       </ul>
@@ -224,7 +224,7 @@ function homePage() {
     ['Cần tài khoản Google không?', 'Có. Bạn cần tài khoản Google để mở file. Sau khi tạo bản sao, file nằm trong Google Drive của bạn.'],
     ['Nhận file bằng cách nào?', 'Sau khi thanh toán, link tạo bản sao được gửi tới email bạn đã nhập, thường trong 1–2 phút. Bấm link, chọn "Tạo bản sao" là dùng được.'],
     ['Không nhận được email thì làm sao?', 'Kiểm tra mục Quảng cáo hoặc Spam trước. Nếu vẫn không thấy, nhắn Zalo hoặc trả lời email để được gửi lại thủ công.'],
-    ['Có hoàn tiền không?', 'Chính sách hoàn tiền sẽ được công bố tại mục "Chính sách hoàn tiền" ở trang này.'],
+    ['Có hoàn tiền không?', 'Có, trong các trường hợp không nhận được file hoặc file lỗi mà Ô Tính không khắc phục được. Mua nhầm và chưa tạo bản sao thì đổi sang mẫu khác trong 7 ngày.', ' <a href="/chinh-sach-hoan-tien/">Xem chính sách hoàn tiền</a>.'],
     ['Mua một lần có phải trả thêm phí không?', 'Không. Bạn trả một lần, không có phí hằng tháng. File thuộc Google Drive của bạn.'],
   ];
 
@@ -311,7 +311,12 @@ ${bundles.length ? `
         <li>Hỗ trợ qua Zalo hoặc email.</li>
       </ul>
       <h3 id="hoan-tien">Chính sách hoàn tiền</h3>
-      <p class="muted">Nội dung chính sách hoàn tiền đang được chủ shop hoàn thiện và sẽ được cập nhật tại đây.</p>
+      <ul class="ticks">
+        <li>Hoàn 100% nếu không nhận được file sau 24 giờ, hoặc file lỗi mà Ô Tính không khắc phục được.</li>
+        <li>Mua nhầm và chưa tạo bản sao: đổi sang mẫu khác trong 7 ngày.</li>
+        <li>Đã tạo bản sao và file đúng như mô tả thì không hoàn tiền.</li>
+      </ul>
+      <p><a href="/chinh-sach-hoan-tien/">Xem chính sách hoàn tiền đầy đủ</a></p>
     </div>
   </div>
 </section>
@@ -320,7 +325,7 @@ ${bundles.length ? `
   <div class="wrap narrow">
     <h2>Hỏi đáp</h2>
     <div class="faq">
-      ${faqs.map(([q, a]) => `<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+      ${faqs.map(([q, a, extra = '']) => `<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}${extra}</p></details>`).join('')}
     </div>
   </div>
 </section>`;
@@ -497,6 +502,84 @@ const notFoundPage = () =>
 </section>`,
   });
 
+// ---------- Chính sách hoàn tiền (nội dung theo CLAUDE.md mục 10) ----------
+const fmtDate = (iso) => (/^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso.split('-').reverse().join('/') : '');
+
+function refundPage() {
+  const date = fmtDate(data.updatedAt);
+  const { zalo, email, ownerName, address } = brand;
+  // Chưa có Zalo/email thì không để trống: dùng câu thay thế theo CLAUDE.md
+  const contactWays = [email && `email ${email}`, zalo && `nhắn Zalo ${zalo}`].filter(Boolean);
+  const contactLine = contactWays.length
+    ? `Gửi ${contactWays.join(' hoặc ')} kèm:`
+    : 'Liên hệ Ô Tính qua nút Zalo nổi trên trang, kèm:';
+  const contactInfo = [
+    ownerName && `Chủ shop: ${ownerName}.`,
+    address && `Địa chỉ: ${address}.`,
+    email && `Email: ${email}.`,
+    zalo && `Zalo: ${zalo}.`,
+  ].filter(Boolean);
+
+  const sections = [
+    ['1. Sản phẩm là file kỹ thuật số', [
+      'Sau khi bạn tạo bản sao, file thuộc Google Drive của bạn. Ô Tính không thể thu hồi file như hàng hoá vật lý, nên chính sách hoàn tiền dưới đây được xây dựng theo đặc thù đó.',
+    ]],
+    ['2. Các trường hợp được hoàn tiền 100%', null, [
+      'Không nhận được link giao file sau 24 giờ kể từ khi thanh toán thành công (đã kiểm tra cả mục Quảng cáo/Spam), và Ô Tính không gửi lại được trong 2 ngày làm việc.',
+      'File không mở được hoặc lỗi khiến bạn không dùng được, và Ô Tính không khắc phục được trong 3 ngày làm việc kể từ khi bạn báo.',
+      'Mẫu thiếu tính năng đã liệt kê trong mục "Bao gồm" trên trang chi tiết tại thời điểm bạn mua.',
+    ]],
+    ['3. Đổi sang mẫu khác', [
+      'Nếu bạn mua nhầm và chưa tạo bản sao, nhắn Ô Tính trong 7 ngày kể từ khi thanh toán để đổi sang mẫu khác. Nếu mẫu mới giá cao hơn, bạn trả thêm phần chênh lệch. Nếu giá thấp hơn, Ô Tính hoàn phần chênh lệch.',
+    ]],
+    ['4. Các trường hợp không hoàn tiền', null, [
+      'Bạn đã tạo bản sao, file đúng như mô tả, nhưng không còn nhu cầu dùng.',
+      'Lỗi phát sinh do bạn tự sửa công thức, xoá hoặc đổi cấu trúc bảng làm ảnh hưởng phần tự tính. Ô Tính vẫn sẵn lòng hướng dẫn khôi phục.',
+      'Yêu cầu sau 7 ngày kể từ khi nhận link giao file. Riêng các trường hợp ở mục 2, thời hạn tính từ ngày bạn phát hiện lỗi hoặc ngày đáng lẽ nhận được link.',
+    ]],
+    ['5. Cách yêu cầu hoàn tiền', [contactLine], [
+      'Mã đơn (dạng #số, có trong email xác nhận)',
+      'Họ tên và email đã dùng khi mua',
+      'Mô tả lỗi, kèm ảnh chụp màn hình nếu có',
+    ], ['Ô Tính phản hồi trong 2 ngày làm việc.']],
+    ['6. Thời gian hoàn tiền', [
+      'Trong 7 ngày làm việc kể từ khi xác nhận, Ô Tính hoàn tiền về đúng tài khoản hoặc phương thức bạn đã dùng để thanh toán. Thời gian tiền về tới tài khoản còn tuỳ ngân hàng.',
+    ]],
+    ['7. Quyền lợi theo pháp luật', [
+      'Chính sách này không làm mất các quyền bạn có theo Luật Bảo vệ quyền lợi người tiêu dùng và Nghị định về thương mại điện tử hiện hành. Khi có tranh chấp, Ô Tính ưu tiên thương lượng với bạn. Nếu không thoả thuận được, bạn có quyền khiếu nại tới cơ quan quản lý về tiêu dùng hoặc cơ quan có thẩm quyền.',
+    ]],
+    ['8. Quyền sử dụng file', [
+      'File mẫu thuộc Ô Tính. Sau khi mua, bạn được dùng cho mục đích cá nhân hoặc nội bộ đơn vị của mình. Không bán lại, không chia sẻ công khai file gốc hay bản sao của người khác.',
+    ]],
+  ];
+  if (contactInfo.length) sections.push(['9. Liên hệ', [contactInfo.join(' ')]]);
+
+  const html = sections
+    .map(([h, intro, list, after]) => `
+    <section class="policy-sec">
+      <h2>${esc(h)}</h2>
+      ${(intro || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${list ? `<ul class="${h.startsWith('4.') ? 'cross' : 'ticks'}">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+      ${(after || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+    </section>`)
+    .join('');
+
+  return layout({
+    title: 'Chính sách hoàn tiền | Ô Tính',
+    desc: 'Khi nào Ô Tính hoàn tiền 100%, cách đổi sang mẫu khác và cách gửi yêu cầu hoàn tiền.',
+    path: '/chinh-sach-hoan-tien/',
+    body: `
+<section class="section">
+  <div class="wrap narrow">
+    <h1>Chính sách hoàn tiền — Ô Tính</h1>
+    <p class="muted">${date ? `Cập nhật: ${esc(date)}. ` : ''}Áp dụng cho mọi đơn mua mẫu Google Sheets trên Ô Tính.</p>
+    <div class="card policy">${html}</div>
+    <div class="actions"><a class="btn btn-ghost" href="/">Về trang chủ</a></div>
+  </div>
+</section>`,
+  });
+}
+
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="14" fill="#B8ECCB" stroke="#2B2D42" stroke-width="5"/><text x="32" y="44" font-size="34" text-anchor="middle" font-family="Nunito,Arial" font-weight="900" fill="#2B2D42">ô</text></svg>`;
 
 // ---------- ghi file ----------
@@ -536,10 +619,12 @@ for (const b of bundles) {
 }
 await write('cam-on/index.html', thanksPage());
 await write('thanh-toan-huy/index.html', cancelPage());
+await write('chinh-sach-hoan-tien/index.html', refundPage());
 await write('404.html', notFoundPage());
 
 const sitemapUrls = [
   '/',
+  '/chinh-sach-hoan-tien/',
   ...sellable.map((p) => `/san-pham/${p.slug}/`),
   ...products.filter((p) => p.status === 'coming-soon').map((p) => `/san-pham/${p.slug}/`),
 ];

@@ -7,7 +7,9 @@
     "tagline": "Mẫu Google Sheets làm sẵn. Mở ra là dùng.",
     "tiktok": "https://www.tiktok.com/@otinh.vn",
     "zalo": null,
-    "email": null
+    "email": null,
+    "ownerName": null,
+    "address": null
   },
   "audiences": [
     { "id": "nguoi-di-lam", "name": "Người đi làm", "description": "Lên kế hoạch, theo dõi việc cá nhân và việc của nhóm" },
