@@ -1,0 +1,11 @@
+{
+  "name": "ot-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page bán mẫu Google Sheets — Ô Tính. Site tĩnh sinh từ data/products.json.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/preview.mjs"
+  }
+}

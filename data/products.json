@@ -1,0 +1,131 @@
+{
+  "_ghi_chu": "Nguồn dữ liệu DUY NHẤT của trang sản phẩm. Thêm mẫu mới = thêm 1 object vào 'products' + 1 ảnh vào /images. KHÔNG đặt link tạo bản sao (link giao hàng) ở file này vì file này công khai.",
+  "updatedAt": "2026-11-10",
+  "currency": "VND",
+  "brand": {
+    "name": "Ô Tính",
+    "tagline": "Mẫu Google Sheets làm sẵn. Mở ra là dùng.",
+    "tiktok": "https://www.tiktok.com/@otinh.vn",
+    "zalo": null,
+    "email": null
+  },
+  "audiences": [
+    { "id": "nguoi-di-lam", "name": "Người đi làm", "description": "Lên kế hoạch, theo dõi việc cá nhân và việc của nhóm" },
+    { "id": "chu-cua-hang", "name": "Chủ cửa hàng nhỏ", "description": "Thu chi, lãi lỗ, quản lý quán và tiệm nhỏ" }
+  ],
+  "products": [
+    {
+      "id": "OT01",
+      "slug": "weekly-planner",
+      "status": "selling",
+      "order": 1,
+      "theme": "green",
+      "badge": "Bán chạy",
+      "name": "Weekly Planner",
+      "audience": "nguoi-di-lam",
+      "tagline": "Kế hoạch tuần, tự tổng kết cả tháng",
+      "description": "Ghi việc mỗi ngày ở một bảng duy nhất. Bảng Tuần và Tháng tự đếm việc đã xong, tính % hoàn thành và vẽ biểu đồ, dữ liệu tuần cũ luôn được giữ lại.",
+      "price": 69000,
+      "compareAtPrice": null,
+      "image": "images/OT01-weekly-planner.webp",
+      "imageFallback": "images/OT01-weekly-planner.png",
+      "imageAlt": "Minh hoạ mẫu Weekly Planner: bảng tổng quan tuần với 4 chỉ số, danh sách việc và biểu đồ theo ngày",
+      "demoUrl": null,
+      "benefits": [
+        "Biết tuần này đã xong bao nhiêu % so với mục tiêu",
+        "Không mất dữ liệu khi sang tuần mới",
+        "Cuối tháng tự có bảng tổng kết theo tuần, danh mục, mức ưu tiên"
+      ],
+      "includes": [
+        "5 tab: Bắt đầu, Nhập việc, Tuần, Tháng, Cài đặt",
+        "6 biểu đồ và thanh tiến độ",
+        "Cảnh báo việc quá hạn và việc hôm nay",
+        "Hướng dẫn ngay trong file + dữ liệu mẫu"
+      ],
+      "limits": [
+        "Dành cho 1 người dùng",
+        "Có sẵn 500 dòng việc (khoảng 3–4 tháng dùng thường xuyên)"
+      ],
+      "tags": ["kế hoạch", "to-do", "cá nhân"]
+    },
+    {
+      "id": "OT02",
+      "slug": "viec-cua-team",
+      "status": "selling",
+      "order": 2,
+      "theme": "navy",
+      "badge": "Mới",
+      "name": "Việc của team",
+      "audience": "nguoi-di-lam",
+      "tagline": "Giao việc, thấy ngay ai đang trễ hạn",
+      "description": "Bảng điều phối cho trưởng nhóm 3–15 người: giao việc, theo dõi tiến độ, biết ai đang quá tải, việc nào sắp trễ và tỷ lệ làm đúng hạn của cả nhóm.",
+      "price": 79000,
+      "compareAtPrice": null,
+      "image": "images/OT02-viec-cua-team.webp",
+      "imageFallback": "images/OT02-viec-cua-team.png",
+      "imageAlt": "Minh hoạ mẫu Việc của team: tổng quan nhóm với số việc quá hạn, khối lượng việc từng người và danh sách việc cần chú ý",
+      "demoUrl": null,
+      "benefits": [
+        "Mỗi sáng mở 1 trang là biết việc nào quá hạn, sắp đến hạn",
+        "Thấy ai đang giữ nhiều việc để chia lại cho đều",
+        "Mỗi thành viên có trang Việc của tôi riêng"
+      ],
+      "includes": [
+        "5 tab: Bắt đầu, Danh sách việc, Tổng quan team, Việc của tôi, Cài đặt",
+        "5 trạng thái việc và 5 mức cảnh báo tự động",
+        "Tỷ lệ đúng hạn theo tháng, tiến độ theo dự án",
+        "Biểu đồ khối lượng việc theo người"
+      ],
+      "limits": [
+        "Tối đa 15 thành viên và 15 dự án",
+        "Cả nhóm dùng chung 1 file nên có thể sửa nhầm dòng của nhau (khôi phục được bằng lịch sử phiên bản)"
+      ],
+      "tags": ["team", "giao việc", "leader"]
+    },
+    {
+      "id": "OT03",
+      "slug": "thu-chi-quan-ca-phe",
+      "status": "selling",
+      "order": 3,
+      "theme": "brown",
+      "badge": null,
+      "name": "Thu chi & Lãi lỗ quán cà phê",
+      "audience": "chu-cua-hang",
+      "tagline": "Ghi thu chi 1 phút mỗi ngày, cuối tháng biết ngay lãi lỗ",
+      "description": "Sổ thu chi làm sẵn cho quán cà phê: chọn hạng mục là bảng tự biết thu hay chi. Báo cáo tháng tự tính lãi gộp, lãi ròng, biên lợi nhuận, tỷ lệ giá vốn và so với tháng trước.",
+      "price": 75000,
+      "compareAtPrice": null,
+      "image": "images/OT03-thu-chi-quan-ca-phe.webp",
+      "imageFallback": "images/OT03-thu-chi-quan-ca-phe.png",
+      "imageAlt": "Minh hoạ mẫu Thu chi và lãi lỗ quán cà phê: doanh thu, tổng chi, lãi ròng, bảng lãi lỗ và biểu đồ cơ cấu chi phí",
+      "demoUrl": null,
+      "benefits": [
+        "Biết quán đang lãi hay lỗ mà không cần học kế toán",
+        "Thấy tiền đang đi đâu: nguyên liệu, mặt bằng, lương, app giao hàng",
+        "So sánh với cùng kỳ tháng trước để phát hiện bất thường"
+      ],
+      "includes": [
+        "5 tab: Bắt đầu, Sổ thu chi, Báo cáo tháng, Tổng kết năm, Cài đặt",
+        "13 hạng mục làm sẵn cho quán cà phê, thêm được tới 25",
+        "Thu theo hình thức: tiền mặt, chuyển khoản, app",
+        "Tổng kết 12 tháng, tháng bán tốt nhất"
+      ],
+      "limits": [
+        "Có sẵn 1.000 dòng (khoảng 6 tháng nếu ghi 5 khoản mỗi ngày)",
+        "Chưa quản lý tồn kho, không thay phần mềm bán hàng hay hoá đơn điện tử"
+      ],
+      "tags": ["quán cà phê", "thu chi", "lãi lỗ"]
+    }
+  ],
+  "bundles": [
+    {
+      "id": "CB01",
+      "slug": "bo-quan-ly-viec",
+      "status": "selling",
+      "name": "Bộ quản lý việc",
+      "items": ["OT01", "OT02"],
+      "price": 129000,
+      "note": "Việc cá nhân + việc của team"
+    }
+  ]
+}
