@@ -45,3 +45,14 @@
 @media (max-width: 480px) {
   .lights i:nth-child(3n) { display: none; }
 }
+
+/* con trỏ chuột: mũi tên đỏ có bông tuyết ở đuôi, đổi sang xanh lá khi trỏ vào thứ bấm được.
+   Có dự phòng cursor mặc định; chỉ áp dụng khi chiến dịch bật. Thiết bị cảm ứng không có con trỏ. */
+.campaign-noel {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2v22l6-5 4 9 4-2-4-9h8z' fill='%23D6403A' stroke='%232B2D42' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='28' r='3' fill='white' stroke='%232B2D42' stroke-width='1.5'/%3E%3C/svg%3E") 4 2, auto;
+}
+.campaign-noel a, .campaign-noel button, .campaign-noel summary, .campaign-noel .btn, .campaign-noel .filter, .campaign-noel label.check, .campaign-noel input[type="checkbox"] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2v22l6-5 4 9 4-2-4-9h8z' fill='%231F6B43' stroke='%232B2D42' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='17' cy='28' r='3' fill='%23FFD66B' stroke='%232B2D42' stroke-width='1.5'/%3E%3C/svg%3E") 4 2, pointer;
+}
+.campaign-noel .btn-disabled { cursor: not-allowed; }
+.campaign-noel .btn[disabled] { cursor: wait; }
