@@ -24,11 +24,46 @@ const bundles = data.bundles.filter((b) => b.status === 'selling');
 const byId = Object.fromEntries(data.products.map((p) => [p.id, p]));
 const themeOf = (p) => p.theme || (p.audience === 'chu-cua-hang' ? 'brown' : 'green');
 const audName = (id) => data.audiences.find((a) => a.id === id)?.name ?? '';
+// Giá thường (gạch) lấy từ compareAtPrice; combo mặc định = tổng giá thường của các mẫu
+const regularOf = (p) => (p.compareAtPrice && p.compareAtPrice > p.price ? p.compareAtPrice : p.price);
 const bundleInfo = (b) => {
   const list = b.items.map((id) => byId[id]);
-  const full = list.reduce((s, p) => s + p.price, 0);
+  const full = b.compareAtPrice || list.reduce((s, p) => s + regularOf(p), 0);
   return { list, full, save: full - b.price };
 };
+const pct = (price, cmp) => (cmp && cmp > price ? Math.round((1 - price / cmp) * 100) : 0);
+const offPill = (price, cmp) => (pct(price, cmp) ? `<span class="off">-${pct(price, cmp)}%</span>` : '');
+const compareHtml = (price, cmp) =>
+  cmp && cmp > price ? `<s class="compare" aria-label="Giá thường ${money(cmp)}">${money(cmp)}</s>${offPill(price, cmp)}` : '';
+
+// ---------- chiến dịch (Giáng Sinh, Tết...) ----------
+// data.campaign: { active, theme, name, message, endsAt }. Chỉ bật khi active và chưa quá endsAt (tính lúc build).
+const todayISO = new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10);
+const campaign =
+  data.campaign && data.campaign.active && (!data.campaign.endsAt || todayISO <= data.campaign.endsAt) ? data.campaign : null;
+const maxOff = Math.max(
+  0,
+  ...sellableOrAll().map((p) => pct(p.price, p.compareAtPrice)),
+  ...data.bundles.filter((b) => b.status === 'selling').map((b) => pct(b.price, bundleInfo(b).full))
+);
+function sellableOrAll() {
+  return data.products.filter((p) => p.status === 'selling');
+}
+const CAMPAIGN_THEMES = {
+  noel: {
+    hat: `<svg class="santa-hat" viewBox="0 0 64 56" aria-hidden="true" focusable="false"><path d="M8 44C10 20 26 6 50 8c-8 6-10 14-8 24 3 4 6 8 14 12z" fill="#D6403A" stroke="#2B2D42" stroke-width="3.5" stroke-linejoin="round"/><rect x="4" y="38" width="56" height="14" rx="7" fill="#fff" stroke="#2B2D42" stroke-width="3.5"/><circle cx="52" cy="10" r="7" fill="#fff" stroke="#2B2D42" stroke-width="3.5"/></svg>`,
+    lights: Array.from({ length: 26 }, () => '<i></i>').join(''),
+    footer: 'Chúc bạn một mùa Giáng Sinh an lành và nhiều niềm vui.',
+  },
+};
+const theme = campaign ? CAMPAIGN_THEMES[campaign.theme] : null;
+const hat = theme?.hat || '';
+const campaignBar = theme
+  ? `<div class="campaign-bar" role="region" aria-label="${esc(campaign.name)}"><div class="wrap campaign-in"><span class="campaign-msg">${esc(campaign.message)}${maxOff ? `: giảm đến <strong>${maxOff}%</strong>` : ''}</span>${campaign.endsAt ? `<span class="campaign-count" data-ends="${esc(campaign.endsAt)}T23:59:59+07:00">đến hết ${esc(fmtDate(campaign.endsAt))}</span>` : ''}</div></div>`
+  : '';
+function fmtDate(iso) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso.split('-').reverse().join('/') : '';
+}
 
 // ---------- thành phần dùng chung ----------
 const mascot = (label = 'Linh vật Ô Tính, ô tính có mặt cười') => `
@@ -80,7 +115,7 @@ const header = `
 <header class="site-header">
   <div class="wrap nav">
     <a class="brand" href="/" aria-label="Ô Tính — trang chủ">
-      ${logoImg}<span class="brand-name">Ô Tính</span>
+      <span class="logo-wrap">${logoImg}${hat}</span><span class="brand-name">Ô Tính</span>
     </a>
     <nav aria-label="Menu chính">
       <a href="/#san-pham">Mẫu</a>
@@ -89,6 +124,7 @@ const header = `
       <a href="/#faq">Hỏi đáp</a>
     </nav>
   </div>
+  ${theme ? `<div class="lights" aria-hidden="true">${theme.lights}</div>` : ''}
 </header>`;
 
 const footer = `
@@ -116,6 +152,7 @@ const footer = `
       </ul>
     </div>
   </div>
+  ${theme ? `<div class="wrap copy muted">${esc(theme.footer)}</div>` : ''}
   <div class="wrap copy muted">© ${YEAR} Ô Tính. Mẫu Google Sheets làm sẵn.</div>
 </footer>`;
 
@@ -149,10 +186,12 @@ function layout({ title, desc, path: pathname, body, image, noindex = false, jso
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800;900&display=swap">
   <link rel="stylesheet" href="/assets/styles.css">
+  ${theme ? `<link rel="stylesheet" href="/assets/campaign-${esc(campaign.theme)}.css">` : ''}
   ${jsonld}
 </head>
-<body class="${bodyClass}">
+<body class="${bodyClass}${theme ? ` campaign campaign-${esc(campaign.theme)}` : ''}">
   <a class="skip" href="#main">Bỏ qua menu</a>
+  ${campaignBar}
   ${header}
   <main id="main">${body}</main>
   ${footer}
@@ -169,14 +208,15 @@ function productCard(p) {
   const t = themeOf(p);
   const badge = p.badge ? `<span class="chip chip-badge">${esc(p.badge)}</span>` : '';
   const soon = p.status === 'coming-soon' ? `<span class="chip chip-soon">Sắp có</span>` : '';
-  const compare = p.compareAtPrice ? `<s class="compare">${money(p.compareAtPrice)}</s>` : '';
+  const compare = compareHtml(p.price, p.compareAtPrice);
+  const tag = pct(p.price, p.compareAtPrice) ? `<span class="sale-tag" aria-hidden="true">-${pct(p.price, p.compareAtPrice)}%</span>` : '';
   const buy =
     p.status === 'selling'
       ? `<a class="btn btn-primary" href="/mua/${esc(p.slug)}/">Mua ngay</a>`
       : `<span class="btn btn-disabled" aria-disabled="true">Sắp mở bán</span>`;
   return `
 <article class="card product t-${t}" data-audience="${esc(p.audience)}">
-  <a class="product-img" href="/san-pham/${esc(p.slug)}/" tabindex="-1" aria-hidden="true">${picture(p)}</a>
+  <a class="product-img" href="/san-pham/${esc(p.slug)}/" tabindex="-1" aria-hidden="true">${picture(p)}${tag}</a>
   <div class="product-body">
     <div class="chips"><span class="chip chip-code">${esc(p.id)}</span>${badge}${soon}</div>
     <h3><a href="/san-pham/${esc(p.slug)}/">${esc(p.name)}</a></h3>
@@ -211,8 +251,7 @@ function homePage() {
     <ul class="ticks">${list.map((p) => `<li>${esc(p.name)} · ${money(p.price)}</li>`).join('')}</ul>
   </div>
   <div class="bundle-price">
-    <p class="muted">Mua lẻ <s>${money(full)}</s></p>
-    <p class="price big">${money(b.price)}</p>
+    <div class="price-row"><span class="price big">${money(b.price)}</span>${compareHtml(b.price, full)}</div>
     ${save > 0 ? `<p class="save">Tiết kiệm ${money(save)}</p>` : ''}
     <a class="btn btn-primary" href="/mua/${esc(b.slug)}/">Mua combo</a>
   </div>
@@ -241,7 +280,7 @@ function homePage() {
         <a class="btn btn-ghost" href="#cach-mua">Cách mua</a>
       </div>
     </div>
-    <div class="hero-art">${mascot()}</div>
+    <div class="hero-art"><div class="mascot-wrap">${mascot()}${hat}</div></div>
   </div>
 </section>
 
@@ -352,7 +391,7 @@ ${bundles.length ? `
 // ---------- trang chi tiết sản phẩm ----------
 function productPage(p) {
   const t = themeOf(p);
-  const compare = p.compareAtPrice ? `<s class="compare">${money(p.compareAtPrice)}</s>` : '';
+  const compare = compareHtml(p.price, p.compareAtPrice);
   const buy =
     p.status === 'selling'
       ? `<a class="btn btn-primary" href="/mua/${esc(p.slug)}/">Mua ngay · ${money(p.price)}</a>`
@@ -508,7 +547,6 @@ const notFoundPage = () =>
   });
 
 // ---------- Chính sách hoàn tiền (nội dung theo CLAUDE.md mục 10) ----------
-const fmtDate = (iso) => (/^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso.split('-').reverse().join('/') : '');
 
 function refundPage() {
   const date = fmtDate(data.updatedAt);

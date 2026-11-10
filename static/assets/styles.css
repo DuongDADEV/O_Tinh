@@ -246,3 +246,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 
 .form .check { display: flex; flex-wrap: nowrap; gap: 10px; align-items: flex-start; font-weight: 600; font-size: .92rem; }
 .form .check input { flex: none; width: 22px; height: 22px; min-height: 0; padding: 0; margin-top: 2px; box-shadow: none; accent-color: #1F6B43; }
+
+/* ---------- giá giảm, nhãn giảm giá ---------- */
+.logo-wrap { position: relative; display: inline-flex; flex: none; }
+.mascot-wrap { position: relative; display: inline-block; }
+.compare { font-size: 1.05rem; font-weight: 800; text-decoration-thickness: 2px; text-decoration-color: var(--bad); }
+.off { align-self: center; background: #FFE9E7; color: var(--bad); border: 2px solid var(--bad); border-radius: 999px; padding: 0 9px; font-weight: 900; font-size: .85rem; line-height: 1.5; }
+.product-img { position: relative; }
+.sale-tag {
+  position: absolute; z-index: 2; top: 14px; right: 12px; display: grid; place-items: center; width: 58px; height: 58px;
+  border: 3px solid var(--ink); border-radius: 50%; background: var(--bad); color: #fff; transform: rotate(8deg);
+  font: 800 1.05rem/1 "Baloo 2", sans-serif; box-shadow: var(--shadow-sm);
+}
+.bundle-price .price-row { gap: 4px 10px; }
+
+/* ---------- Cam kết minh bạch: giãn dòng đều ---------- */
+.ticks li, .cross li { line-height: 1.5; }
+.ticks li::before, .cross li::before { top: 3px; }
+#cam-ket .card h3 { margin: 26px 0 14px; padding-top: 22px; border-top: 3px dashed rgba(43, 45, 66, .2); }
+#cam-ket .card > p { margin: 18px 0 0; }

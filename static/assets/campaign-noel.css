@@ -1,0 +1,47 @@
+/* Chủ đề Giáng Sinh. Chỉ được nạp khi data.campaign.theme = "noel" */
+:root { --noel-red: #D6403A; --noel-green: #1F6B43; }
+
+/* thanh thông báo trên cùng */
+.campaign-bar { background: var(--noel-red); color: #fff; border-bottom: 3px solid var(--ink); }
+.campaign-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 12px; padding-top: 8px; padding-bottom: 8px; font-weight: 800; font-size: .95rem; text-align: center; }
+.campaign-bar strong { background: var(--sun); color: var(--ink); border-radius: 999px; padding: 0 10px; }
+.campaign-count { background: #fff; color: var(--noel-red); border: 2px solid var(--ink); border-radius: 999px; padding: 0 12px; font-size: .85rem; }
+
+/* dây đèn dưới header */
+.lights { position: absolute; left: 0; right: 0; top: 100%; display: flex; justify-content: space-around; height: 30px; overflow: hidden; pointer-events: none; }
+.lights::before { content: ""; position: absolute; left: -2%; right: -2%; top: -9px; height: 20px; border-bottom: 2px solid var(--ink); border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+.lights i { position: relative; top: 4px; width: 10px; height: 15px; border: 2px solid var(--ink); border-radius: 50% 50% 55% 55% / 45% 45% 60% 60%; background: #FF6B6B; animation: twinkle 1.8s ease-in-out infinite alternate; }
+.lights i:nth-child(odd) { top: 9px; }
+.lights i:nth-child(4n+2) { background: var(--sun); animation-delay: .4s; }
+.lights i:nth-child(4n+3) { background: #3FAE6A; animation-delay: .9s; }
+.lights i:nth-child(4n) { background: #7CC4F2; animation-delay: 1.3s; }
+@keyframes twinkle { from { opacity: 1; filter: brightness(1.1); } to { opacity: .45; filter: brightness(.85); } }
+
+/* nón ông già Noel trên logo và linh vật */
+.santa-hat { position: absolute; pointer-events: none; }
+.logo-wrap .santa-hat { width: 30px; left: 10px; top: -17px; transform: rotate(14deg); }
+.mascot-wrap .santa-hat { width: 40%; left: 28%; top: -4%; transform: rotate(-8deg); }
+
+/* mép tuyết trên ảnh sản phẩm */
+.campaign-noel .product-img::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px;
+  background: radial-gradient(circle at 13px 0, #fff 11px, transparent 12px) 0 0 / 26px 14px repeat-x;
+}
+.campaign-noel .sale-tag { background: var(--noel-red); }
+
+/* tuyết rơi */
+.snow { position: fixed; inset: 0; z-index: 15; pointer-events: none; overflow: hidden; }
+.snow i { position: absolute; top: -12px; border-radius: 50%; background: #fff; border: 1px solid #9DB6DC; animation: snowfall linear infinite; }
+@keyframes snowfall {
+  0% { transform: translate(0, -5vh); }
+  50% { transform: translate(var(--dx), 55vh); }
+  100% { transform: translate(calc(var(--dx) * -1), 108vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lights i { animation: none; }
+  .snow { display: none; }
+}
+@media (max-width: 480px) {
+  .lights i:nth-child(3n) { display: none; }
+}

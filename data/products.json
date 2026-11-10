@@ -1,6 +1,14 @@
 {
   "_ghi_chu": "Nguồn dữ liệu DUY NHẤT của trang sản phẩm. Thêm mẫu mới = thêm 1 object vào 'products' + 1 ảnh vào /images. KHÔNG đặt link tạo bản sao (link giao hàng) ở file này vì file này công khai.",
   "updatedAt": "2026-11-10",
+  "campaign": {
+    "_ghi_chu": "Chiến dịch hiện tại. active=false hoặc quá endsAt (lúc build) thì tắt trang trí. theme: noel (thêm chủ đề mới = thêm static/assets/campaign-<theme>.css và mục trong CAMPAIGN_THEMES ở scripts/build.mjs).",
+    "active": true,
+    "theme": "noel",
+    "name": "Giáng Sinh",
+    "message": "Ưu đãi Giáng Sinh",
+    "endsAt": "2026-12-26"
+  },
   "currency": "VND",
   "brand": {
     "name": "Ô Tính",
@@ -28,7 +36,7 @@
       "tagline": "Kế hoạch tuần, tự tổng kết cả tháng",
       "description": "Ghi việc mỗi ngày ở một bảng duy nhất. Bảng Tuần và Tháng tự đếm việc đã xong, tính % hoàn thành và vẽ biểu đồ, dữ liệu tuần cũ luôn được giữ lại.",
       "price": 69000,
-      "compareAtPrice": null,
+      "compareAtPrice": 99000,
       "image": "images/OT01-weekly-planner.webp",
       "imageFallback": "images/OT01-weekly-planner.png",
       "imageAlt": "Minh hoạ mẫu Weekly Planner: bảng tổng quan tuần với 4 chỉ số, danh sách việc và biểu đồ theo ngày",
@@ -62,7 +70,7 @@
       "tagline": "Giao việc, thấy ngay ai đang trễ hạn",
       "description": "Bảng điều phối cho trưởng nhóm 3–15 người: giao việc, theo dõi tiến độ, biết ai đang quá tải, việc nào sắp trễ và tỷ lệ làm đúng hạn của cả nhóm.",
       "price": 79000,
-      "compareAtPrice": null,
+      "compareAtPrice": 119000,
       "image": "images/OT02-viec-cua-team.webp",
       "imageFallback": "images/OT02-viec-cua-team.png",
       "imageAlt": "Minh hoạ mẫu Việc của team: tổng quan nhóm với số việc quá hạn, khối lượng việc từng người và danh sách việc cần chú ý",
@@ -96,7 +104,7 @@
       "tagline": "Ghi thu chi 1 phút mỗi ngày, cuối tháng biết ngay lãi lỗ",
       "description": "Sổ thu chi làm sẵn cho quán cà phê: chọn hạng mục là bảng tự biết thu hay chi. Báo cáo tháng tự tính lãi gộp, lãi ròng, biên lợi nhuận, tỷ lệ giá vốn và so với tháng trước.",
       "price": 75000,
-      "compareAtPrice": null,
+      "compareAtPrice": 109000,
       "image": "images/OT03-thu-chi-quan-ca-phe.webp",
       "imageFallback": "images/OT03-thu-chi-quan-ca-phe.png",
       "imageAlt": "Minh hoạ mẫu Thu chi và lãi lỗ quán cà phê: doanh thu, tổng chi, lãi ròng, bảng lãi lỗ và biểu đồ cơ cấu chi phí",
@@ -127,6 +135,7 @@
       "name": "Bộ quản lý việc",
       "items": ["OT01", "OT02"],
       "price": 129000,
+      "compareAtPrice": 218000,
       "note": "Việc cá nhân + việc của team"
     }
   ]
