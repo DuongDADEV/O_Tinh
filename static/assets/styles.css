@@ -243,3 +243,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .policy-sec + .policy-sec { margin-top: 24px; }
 .policy h2 { font-size: 1.25rem; margin: 0 0 8px; }
 .policy p { margin: 0 0 10px; }
+
+.form .check { display: flex; flex-wrap: nowrap; gap: 10px; align-items: flex-start; font-weight: 600; font-size: .92rem; }
+.form .check input { flex: none; width: 22px; height: 22px; min-height: 0; padding: 0; margin-top: 2px; box-shadow: none; accent-color: #1F6B43; }

@@ -110,6 +110,7 @@ const footer = `
       <h3>Thông tin</h3>
       <ul class="plain">
         <li><a href="/chinh-sach-hoan-tien/">Chính sách hoàn tiền</a></li>
+        <li><a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a></li>
         <li><a href="/#faq">Câu hỏi thường gặp</a></li>
         <li class="muted">Thông tin chủ shop: đang cập nhật</li>
       </ul>
@@ -435,7 +436,11 @@ function checkoutPage({ code, slug, name, price, note }) {
     <label>Số điện thoại hoặc Zalo <span class="opt">(không bắt buộc)</span>
       <input name="phone" type="tel" autocomplete="tel" maxlength="20">
     </label>
+    <label class="check"><input name="promo" type="checkbox" value="1">
+      <span>Tôi đồng ý nhận email và tin nhắn Zalo giới thiệu mẫu mới, khuyến mãi từ Ô Tính (không bắt buộc, huỷ bất cứ lúc nào).</span>
+    </label>
     <button class="btn btn-primary btn-block" type="submit">Tiếp tục thanh toán</button>
+    <p class="hint">Khi tiếp tục, bạn đồng ý với <a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a> và <a href="/chinh-sach-hoan-tien/">Chính sách hoàn tiền</a>.</p>
     <p id="checkout-msg" class="msg" role="status" aria-live="polite"></p>
   </form>
   <ol class="mini-steps">
@@ -580,6 +585,85 @@ function refundPage() {
   });
 }
 
+// ---------- Chính sách bảo mật (bản đã duyệt: lưu 24 tháng, có khuyến mãi khi khách đồng ý) ----------
+function privacyPage() {
+  const date = fmtDate(data.updatedAt);
+  const { zalo, email, ownerName, address } = brand;
+  const contactWays = [email && `email ${email}`, zalo && `nhắn Zalo ${zalo}`].filter(Boolean);
+  const reach = contactWays.length ? contactWays.join(' hoặc ') : 'nút Zalo nổi trên trang';
+  const contactInfo = [
+    ownerName && `Chủ shop: ${ownerName}.`,
+    address && `Địa chỉ: ${address}.`,
+    email && `Email: ${email}.`,
+    zalo && `Zalo: ${zalo}.`,
+  ].filter(Boolean);
+
+  const sections = [
+    ['1. Chúng tôi thu thập thông tin nào', ['Khi bạn bấm "Mua ngay" và điền form, chúng tôi thu thập:'], [
+      'Họ tên (bắt buộc)',
+      'Email (bắt buộc), dùng để gửi link nhận file',
+      'Số điện thoại hoặc Zalo (không bắt buộc)',
+      'Lựa chọn của bạn về việc nhận khuyến mãi (ô tích không bắt buộc, mặc định là không)',
+    ], [
+      'Khi tạo đơn, hệ thống tự ghi thêm: mã sản phẩm, mã đơn, số tiền, thời điểm tạo đơn, trạng thái thanh toán và thời điểm gửi email.',
+      'Chúng tôi không thu thập và không nhìn thấy số thẻ, mật khẩu hay thông tin đăng nhập ngân hàng của bạn. Việc thanh toán diễn ra trên trang của cổng thanh toán payOS.',
+    ]],
+    ['2. Chúng tôi dùng thông tin để làm gì', null, [
+      'Tạo đơn hàng và liên kết đơn với khoản thanh toán của bạn.',
+      'Gửi email chứa link nhận file sau khi thanh toán thành công.',
+      'Hỗ trợ bạn khi cần gửi lại file, đổi mẫu hoặc hoàn tiền.',
+      'Đối soát đơn hàng, nghĩa vụ sổ sách và nghĩa vụ pháp lý (nếu có).',
+      'Chỉ khi bạn tích đồng ý: gửi email và tin nhắn Zalo giới thiệu mẫu mới, khuyến mãi.',
+    ], [`Chúng tôi không bán thông tin của bạn. Nếu bạn không tích ô đồng ý, chúng tôi chỉ liên hệ về đơn hàng của bạn. Bạn có thể ngừng nhận khuyến mãi bất cứ lúc nào bằng cách liên hệ qua ${reach}.`]],
+    ['3. Thông tin được lưu ở đâu và chia sẻ với ai', ['Để vận hành, thông tin của bạn đi qua các bên sau:'], [
+      'payOS (cổng thanh toán): nhận mã đơn, số tiền, nội dung chuyển khoản để tạo mã QR và báo kết quả. Thông tin tài khoản ngân hàng do payOS và ngân hàng xử lý theo chính sách riêng của họ.',
+      'Google (Google Sheets, Apps Script, Gmail): lưu danh sách đơn hàng và gửi email cho bạn, gồm họ tên, email, số điện thoại/Zalo và thông tin đơn.',
+      'Vercel (lưu trữ trang web): ghi nhận dữ liệu truy cập kỹ thuật như địa chỉ IP trong nhật ký máy chủ.',
+      'Google Fonts: tải phông chữ hiển thị trên trang, nhận địa chỉ IP của trình duyệt.',
+    ], [
+      'Danh sách đơn hàng nằm trong một Google Sheet riêng tư, chỉ người được chủ shop cấp quyền mới mở được. Khoá bí mật của cổng thanh toán được lưu tách riêng, không nằm trên trang web công khai.',
+      'Ngoài các bên trên, chúng tôi không chia sẻ thông tin của bạn cho bên thứ ba, trừ khi pháp luật hoặc cơ quan nhà nước có thẩm quyền yêu cầu bằng văn bản. Một số bên trên đặt máy chủ ở nước ngoài, nên dữ liệu có thể được xử lý ngoài Việt Nam.',
+    ]],
+    ['4. Cookie và theo dõi', ['Hiện tại trang web không dùng cookie quảng cáo và không cài công cụ theo dõi hành vi (như Google Analytics hay pixel quảng cáo). Nếu sau này chúng tôi thêm, trang này sẽ được cập nhật trước khi áp dụng.']],
+    ['5. Thời gian lưu trữ', ['Chúng tôi lưu thông tin đơn hàng trong 24 tháng kể từ ngày mua để hỗ trợ bạn và đối soát. Sau thời hạn này, chúng tôi xoá hoặc ẩn danh thông tin cá nhân, trừ phần pháp luật yêu cầu giữ lại lâu hơn.']],
+    ['6. Quyền của bạn', ['Bạn có quyền:'], [
+      'Hỏi chúng tôi đang lưu thông tin gì về bạn.',
+      'Yêu cầu sửa thông tin sai.',
+      'Yêu cầu xoá thông tin cá nhân của bạn. Với đơn đã hoàn tất, chúng tôi có thể phải giữ lại dữ liệu tối thiểu (mã đơn, số tiền, ngày) theo quy định kế toán; họ tên, email, số điện thoại sẽ được xoá.',
+      'Rút lại sự đồng ý đã cho, hoặc từ chối nhận email và tin nhắn khuyến mãi.',
+    ], [`Để thực hiện, gửi yêu cầu qua ${reach}, kèm mã đơn và email đã dùng khi mua. Chúng tôi phản hồi trong 7 ngày làm việc và có thể cần xác minh bạn đúng là chủ đơn hàng trước khi xử lý.`]],
+    ['7. Bảo mật', ['Chúng tôi chỉ thu thập thông tin cần thiết, hạn chế người truy cập vào danh sách đơn hàng, và giá bán được lấy từ máy chủ chứ không tin dữ liệu từ trình duyệt. Dù vậy, không hệ thống nào an toàn tuyệt đối. Nếu xảy ra sự cố ảnh hưởng đến thông tin của bạn, chúng tôi sẽ thông báo cho bạn và cơ quan có thẩm quyền theo quy định.']],
+    ['8. Trẻ em', ['Dịch vụ dành cho người từ 16 tuổi trở lên hoặc có sự đồng ý của cha mẹ, người giám hộ. Chúng tôi không chủ ý thu thập thông tin của trẻ em.']],
+    ['9. Thay đổi chính sách', ['Khi chính sách thay đổi, chúng tôi cập nhật ngày ở đầu trang. Thay đổi quan trọng sẽ được thông báo rõ trên trang web.']],
+  ];
+  if (contactInfo.length) sections.push(['10. Liên hệ', [contactInfo.join(' ')]]);
+
+  const html = sections
+    .map(([h, intro, list, after]) => `
+    <section class="policy-sec">
+      <h2>${esc(h)}</h2>
+      ${(intro || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${list ? `<ul class="ticks">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+      ${(after || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+    </section>`)
+    .join('');
+
+  return layout({
+    title: 'Chính sách bảo mật | Ô Tính',
+    desc: 'Ô Tính thu thập thông tin nào khi bạn mua hàng, dùng để làm gì, lưu ở đâu và quyền của bạn.',
+    path: '/chinh-sach-bao-mat/',
+    body: `
+<section class="section">
+  <div class="wrap narrow">
+    <h1>Chính sách bảo mật — Ô Tính</h1>
+    <p class="muted">${date ? `Cập nhật: ${esc(date)}. ` : ''}Áp dụng cho mọi người dùng trang web và khách mua hàng của Ô Tính.</p>
+    <div class="card policy">${html}</div>
+    <div class="actions"><a class="btn btn-ghost" href="/">Về trang chủ</a></div>
+  </div>
+</section>`,
+  });
+}
+
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="14" fill="#B8ECCB" stroke="#2B2D42" stroke-width="5"/><text x="32" y="44" font-size="34" text-anchor="middle" font-family="Nunito,Arial" font-weight="900" fill="#2B2D42">ô</text></svg>`;
 
 // ---------- ghi file ----------
@@ -620,11 +704,13 @@ for (const b of bundles) {
 await write('cam-on/index.html', thanksPage());
 await write('thanh-toan-huy/index.html', cancelPage());
 await write('chinh-sach-hoan-tien/index.html', refundPage());
+await write('chinh-sach-bao-mat/index.html', privacyPage());
 await write('404.html', notFoundPage());
 
 const sitemapUrls = [
   '/',
   '/chinh-sach-hoan-tien/',
+  '/chinh-sach-bao-mat/',
   ...sellable.map((p) => `/san-pham/${p.slug}/`),
   ...products.filter((p) => p.status === 'coming-soon').map((p) => `/san-pham/${p.slug}/`),
 ];

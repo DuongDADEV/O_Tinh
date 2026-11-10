@@ -17,7 +17,7 @@
 const SHEET_ORDERS = 'Đơn hàng';
 const SHEET_STORE = 'Kho sản phẩm';
 // Cột sheet "Đơn hàng" (bắt đầu từ 1)
-const COL = { TIME: 1, CODE: 2, SKU: 3, NAME: 4, AMOUNT: 5, CUSTOMER: 6, EMAIL: 7, PHONE: 8, STATUS: 9, SENT: 10, NOTE: 11 };
+const COL = { TIME: 1, CODE: 2, SKU: 3, NAME: 4, AMOUNT: 5, CUSTOMER: 6, EMAIL: 7, PHONE: 8, STATUS: 9, SENT: 10, NOTE: 11, PROMO: 12 };
 const ORDER_COLS = 11;
 const ST_PENDING = 'Chờ thanh toán';
 const ST_PAID = 'Đã thanh toán';
@@ -52,6 +52,7 @@ function handleCreateOrder(b) {
   const name = String(b.name || '').trim().slice(0, 100);
   const email = String(b.email || '').trim().toLowerCase().slice(0, 120);
   const phone = String(b.phone || '').trim().slice(0, 20);
+  const promo = b.promo ? 'Có' : 'Không'; // khách tích đồng ý nhận khuyến mãi (mặc định không)
 
   if (!name) throw userError('Vui lòng nhập họ tên.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw userError('Email chưa đúng, bạn kiểm tra lại nhé.');
@@ -70,7 +71,7 @@ function handleCreateOrder(b) {
   const lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
-    sheet.appendRow([new Date(), orderCode, sku, product.name, amount, '', '', '', ST_PENDING, '', '']);
+    sheet.appendRow([new Date(), orderCode, sku, product.name, amount, '', '', '', ST_PENDING, '', '', promo]);
     row = sheet.getLastRow();
     // Định dạng văn bản thuần cho thông tin khách: giữ số 0 đầu SĐT, chặn công thức
     sheet.getRange(row, COL.CUSTOMER, 1, 3).setNumberFormat('@').setValues([[name, email, phone]]);
