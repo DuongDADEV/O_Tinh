@@ -1,5 +1,5 @@
 {
   "_ghi_chu": "Cấu hình build. KHÔNG chứa khoá bí mật. orderEndpoint = URL Web App Apps Script (/createOrder), để null cho tới khi backend sẵn sàng.",
-  "siteUrl": "https://example.com",
+  "siteUrl": "https://otinhsheet.vercel.app",
   "orderEndpoint": "https://script.google.com/macros/s/AKfycby0_gifZs4jbzQW6iJJs-zsbdzZ7mwknhX2YItqzM_yoy9Asr5y-HWD3FRJNTyGKLvW/exec"
 }
