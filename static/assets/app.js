@@ -51,6 +51,35 @@
     document.body.appendChild(snow);
   }
 
+  // 1c) Video giới thiệu: chỉ phát khi nằm trong khung nhìn, tạm dừng khi ra ngoài.
+  // Người bật "giảm chuyển động" chỉ thấy ảnh poster, không phát.
+  var vids = document.querySelectorAll('video.intro-video');
+  if (vids.length) {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      vids.forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+    } else {
+      var seen = {};
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var v = en.target;
+          if (en.isIntersecting) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+            var id = v.getAttribute('data-product');
+            if (!seen[id]) {
+              seen[id] = true;
+              if (typeof window.gtag === 'function') window.gtag('event', 'view_product_video', { product_id: id });
+            }
+          } else {
+            v.pause();
+          }
+        });
+      }, { threshold: 0.35 });
+      vids.forEach(function (v) { io.observe(v); });
+    }
+  }
+
   // 2) Form mua hàng: gửi mã sản phẩm + thông tin khách tới Apps Script, nhận checkoutUrl rồi chuyển sang payOS.
   // Giá KHÔNG gửi từ trình duyệt: server tự tra theo mã.
   var form = document.getElementById('checkout-form');

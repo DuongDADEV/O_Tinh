@@ -403,7 +403,18 @@ function productPage(p) {
 <section class="wrap detail t-${t}">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / <a href="/#san-pham">Mẫu</a> / <span>${esc(p.name)}</span></nav>
   <div class="detail-grid">
-    <div class="card detail-img">${picture(p, '', true)}</div>
+    ${
+      p.video
+        ? `<div class="card detail-img has-video">
+      <div class="video-frame">
+        <video class="intro-video" muted loop playsinline preload="metadata" poster="/${esc(p.videoPoster || p.image)}" data-product="${esc(p.id)}" aria-label="${esc(p.imageAlt)}">
+          <source src="/${esc(p.video)}" type="video/mp4">
+        </video>
+      </div>
+      <p class="video-note">Quay từ file thật</p>
+    </div>`
+        : `<div class="card detail-img">${picture(p, '', true)}</div>`
+    }
     <div class="detail-info">
       <p class="code">${esc(p.id)} · ${esc(audName(p.audience))}</p>
       <h1>${esc(p.name)}</h1>

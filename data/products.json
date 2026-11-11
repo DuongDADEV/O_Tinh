@@ -40,6 +40,8 @@
       "image": "images/OT01-weekly-planner.webp",
       "imageFallback": "images/OT01-weekly-planner.png",
       "imageAlt": "Minh hoạ mẫu Weekly Planner: bảng tổng quan tuần với 4 chỉ số, danh sách việc và biểu đồ theo ngày",
+      "video": "videos/OT01_gioi-thieu-14s.mp4",
+      "videoPoster": "images/OT01-weekly-planner.webp",
       "demoUrl": null,
       "benefits": [
         "Biết tuần này đã xong bao nhiêu % so với mục tiêu",
@@ -74,6 +76,8 @@
       "image": "images/OT02-viec-cua-team.webp",
       "imageFallback": "images/OT02-viec-cua-team.png",
       "imageAlt": "Minh hoạ mẫu Việc của team: tổng quan nhóm với số việc quá hạn, khối lượng việc từng người và danh sách việc cần chú ý",
+      "video": "videos/OT02_gioi-thieu-14s.mp4",
+      "videoPoster": "images/OT02-viec-cua-team.webp",
       "demoUrl": null,
       "benefits": [
         "Mỗi sáng mở 1 trang là biết việc nào quá hạn, sắp đến hạn",
@@ -108,6 +112,8 @@
       "image": "images/OT03-thu-chi-quan-ca-phe.webp",
       "imageFallback": "images/OT03-thu-chi-quan-ca-phe.png",
       "imageAlt": "Minh hoạ mẫu Thu chi và lãi lỗ quán cà phê: doanh thu, tổng chi, lãi ròng, bảng lãi lỗ và biểu đồ cơ cấu chi phí",
+      "video": "videos/OT03_gioi-thieu-14s.mp4",
+      "videoPoster": "images/OT03-thu-chi-quan-ca-phe.webp",
       "demoUrl": null,
       "benefits": [
         "Biết quán đang lãi hay lỗ mà không cần học kế toán",

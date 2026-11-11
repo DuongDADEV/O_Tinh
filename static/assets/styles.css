@@ -265,3 +265,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .ticks li::before, .cross li::before { top: 3px; }
 #cam-ket .card h3 { margin: 26px 0 14px; padding-top: 22px; border-top: 3px dashed rgba(43, 45, 66, .2); }
 #cam-ket .card > p { margin: 18px 0 0; }
+
+/* ---------- video giới thiệu trên trang chi tiết ---------- */
+.video-frame { aspect-ratio: 1176 / 892; background: var(--bg); overflow: hidden; border-bottom: 3px solid var(--ink); }
+.intro-video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--bg); pointer-events: none; }
+.video-note { margin: 0; padding: 8px 14px; background: #fff; font-size: .85rem; font-weight: 800; color: #5A5D70; text-align: center; }
