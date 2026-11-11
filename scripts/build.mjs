@@ -148,7 +148,6 @@ const footer = `
         <li><a href="/chinh-sach-hoan-tien/">Chính sách hoàn tiền</a></li>
         <li><a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a></li>
         <li><a href="/#faq">Câu hỏi thường gặp</a></li>
-        <li class="muted">Thông tin chủ shop: đang cập nhật</li>
       </ul>
     </div>
   </div>
