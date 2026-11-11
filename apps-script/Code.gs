@@ -239,7 +239,7 @@ function registerWebhook() {
  * Địa chỉ web app (/exec) bên dưới là địa chỉ công khai của bạn; sửa nếu bạn tạo triển khai mới.
  */
 function registerWebhookNow() {
-  const url = 'https://script.google.com/macros/s/AKfycby0_gifZs4jbzQW6iJJs-zsbdzZ7mwknhX2YItqzM_yoy9Asr5y-HWD3FRJNTyGKLvW/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbz2tCJoetAfrsr_xp0lFVKXKjHJxGBxJe8-ZGIgunIQXLi7HKzZ0XCW9X_u1bMVlXeQ/exec';
   const res = UrlFetchApp.fetch(PAYOS_HOST + '/confirm-webhook', {
     method: 'post',
     contentType: 'application/json',
