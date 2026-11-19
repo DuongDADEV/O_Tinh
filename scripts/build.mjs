@@ -68,20 +68,25 @@ function fmtDate(iso) {
 // ---------- thành phần dùng chung ----------
 const mascot = (label = 'Linh vật Ô Tính, ô tính có mặt cười') => `
 <svg class="mascot" viewBox="0 0 300 300" role="img" aria-label="${esc(label)}">
-  <ellipse cx="150" cy="284" rx="78" ry="8" fill="#2B2D42" opacity=".12"/>
-  <path d="M150 84 C150 62 140 50 122 48 C126 64 134 76 150 84Z" fill="#3FAE6A" stroke="#2B2D42" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M150 84 C158 64 176 58 192 64 C186 78 168 86 150 84Z" fill="#3FAE6A" stroke="#2B2D42" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M66 190 C44 186 40 160 58 150" fill="none" stroke="#2B2D42" stroke-width="7" stroke-linecap="round"/>
-  <path d="M234 190 C256 186 260 160 242 150" fill="none" stroke="#2B2D42" stroke-width="7" stroke-linecap="round"/>
-  <rect class="body" x="72" y="86" width="156" height="178" rx="40" stroke="#2B2D42" stroke-width="8"/>
-  <path d="M72 128 H228" stroke="#2B2D42" stroke-width="5" opacity=".2"/>
-  <circle cx="122" cy="166" r="11" fill="#2B2D42"/><circle cx="126" cy="162" r="3.6" fill="#fff"/>
-  <circle cx="178" cy="166" r="11" fill="#2B2D42"/><circle cx="182" cy="162" r="3.6" fill="#fff"/>
-  <ellipse cx="104" cy="194" rx="13" ry="8" fill="#FF9FAE"/>
-  <ellipse cx="196" cy="194" rx="13" ry="8" fill="#FF9FAE"/>
-  <path d="M136 190 Q150 204 164 190" fill="none" stroke="#2B2D42" stroke-width="6" stroke-linecap="round"/>
-  <rect x="94" y="258" width="26" height="24" rx="10" fill="#2B2D42"/>
-  <rect x="180" y="258" width="26" height="24" rx="10" fill="#2B2D42"/>
+  <ellipse class="m-shadow" cx="150" cy="284" rx="78" ry="8" fill="#2B2D42" opacity=".12"/>
+  <g class="m-jump"><g class="m-all">
+    <g class="m-leaf">
+      <path d="M150 84 C150 62 140 50 122 48 C126 64 134 76 150 84Z" fill="#3FAE6A" stroke="#2B2D42" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M150 84 C158 64 176 58 192 64 C186 78 168 86 150 84Z" fill="#3FAE6A" stroke="#2B2D42" stroke-width="6" stroke-linejoin="round"/>
+    </g>
+    <path class="m-arm m-arm-l" d="M66 190 C44 186 40 160 58 150" fill="none" stroke="#2B2D42" stroke-width="7" stroke-linecap="round"/>
+    <path class="m-arm m-arm-r" d="M234 190 C256 186 260 160 242 150" fill="none" stroke="#2B2D42" stroke-width="7" stroke-linecap="round"/>
+    <rect class="body" x="72" y="86" width="156" height="178" rx="40" stroke="#2B2D42" stroke-width="8"/>
+    <path d="M72 128 H228" stroke="#2B2D42" stroke-width="5" opacity=".2"/>
+    <g class="m-eye m-eye-l"><g class="m-look"><circle cx="122" cy="166" r="11" fill="#2B2D42"/><circle cx="126" cy="162" r="3.6" fill="#fff"/></g></g>
+    <g class="m-eye m-eye-r"><g class="m-look"><circle cx="178" cy="166" r="11" fill="#2B2D42"/><circle cx="182" cy="162" r="3.6" fill="#fff"/></g></g>
+    <ellipse class="m-cheek m-cheek-l" cx="104" cy="194" rx="13" ry="8" fill="#FF9FAE"/>
+    <ellipse class="m-cheek m-cheek-r" cx="196" cy="194" rx="13" ry="8" fill="#FF9FAE"/>
+    <path class="m-smile" d="M136 190 Q150 204 164 190" fill="none" stroke="#2B2D42" stroke-width="6" stroke-linecap="round"/>
+    <g class="m-open"><path d="M133 187 Q150 220 167 187 Q150 192 133 187Z" fill="#2B2D42" stroke="#2B2D42" stroke-width="5" stroke-linejoin="round"/><path d="M142 200 Q150 209 158 200 Q150 195 142 200Z" fill="#FF9FAE"/></g>
+    <rect x="94" y="258" width="26" height="24" rx="10" fill="#2B2D42"/>
+    <rect x="180" y="258" width="26" height="24" rx="10" fill="#2B2D42"/>
+  </g></g>
 </svg>`;
 
 const icon = (name) => {

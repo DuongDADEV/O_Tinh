@@ -80,6 +80,16 @@
     }
   }
 
+  // 1d) Bấm / chạm vào linh vật: phản ứng vui trong ~1,2 giây
+  document.querySelectorAll('.mascot-wrap, .mascot-small').forEach(function (el) {
+    var t;
+    el.addEventListener('click', function () {
+      el.classList.add('is-cheer');
+      clearTimeout(t);
+      t = setTimeout(function () { el.classList.remove('is-cheer'); }, 1200);
+    });
+  });
+
   // 2) Form mua hàng: gửi mã sản phẩm + thông tin khách tới Apps Script, nhận checkoutUrl rồi chuyển sang payOS.
   // Giá KHÔNG gửi từ trình duyệt: server tự tra theo mã.
   var form = document.getElementById('checkout-form');

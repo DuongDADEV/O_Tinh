@@ -270,3 +270,60 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .video-frame { aspect-ratio: 1176 / 892; background: var(--bg); overflow: hidden; border-bottom: 3px solid var(--ink); }
 .intro-video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--bg); pointer-events: none; }
 .video-note { margin: 0; padding: 8px 14px; background: #fff; font-size: .85rem; font-weight: 800; color: #5A5D70; text-align: center; }
+
+/* ---------- linh vật chuyển động nhẹ (chu kỳ biểu cảm 9 giây) ---------- */
+.m-open { opacity: 0; }
+.m-all { transform-origin: 150px 282px; animation: m-breathe 3.4s ease-in-out infinite alternate; }
+.m-jump { animation: m-jump 9s ease-in-out infinite; }
+.m-smile { animation: m-smile 9s linear infinite; }
+.m-open { animation: m-open 9s linear infinite; }
+.m-eye { animation: m-blink 9s ease-in-out infinite; }
+.m-eye-l { transform-origin: 122px 166px; }
+.m-eye-r { transform-origin: 178px 166px; }
+.m-look { animation: m-look 9s ease-in-out infinite; }
+.m-cheek { animation: m-cheek 9s ease-in-out infinite; }
+.m-cheek-l { transform-origin: 104px 194px; }
+.m-cheek-r { transform-origin: 196px 194px; }
+.m-arm-l { transform-origin: 66px 190px; animation: m-wave 2.8s ease-in-out infinite alternate; }
+.m-arm-r { transform-origin: 234px 190px; animation: m-wave 2.8s ease-in-out -1.4s infinite alternate-reverse; }
+.m-leaf { transform-origin: 150px 84px; animation: m-sway 3.2s ease-in-out infinite alternate; }
+.m-shadow { transform-origin: 150px 284px; animation: m-shadow 4s ease-in-out infinite; }
+.mascot-wrap, .mascot-small .mascot { animation: m-float 4s ease-in-out infinite; }
+.mascot-wrap .santa-hat { animation: m-hat 4s ease-in-out infinite; }
+
+@keyframes m-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes m-shadow { 0%, 100% { transform: scale(1); opacity: .12; } 50% { transform: scale(.86); opacity: .08; } }
+@keyframes m-hat { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(-4deg) translateY(1px); } }
+@keyframes m-breathe { from { transform: scale(1, 1); } to { transform: scale(1.012, .984); } }
+@keyframes m-jump {
+  0%, 36%, 49%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); } 43% { transform: translateY(0); } 46% { transform: translateY(-5px); }
+}
+@keyframes m-smile { 0%, 37.9% { opacity: 1; } 38%, 50% { opacity: 0; } 50.1%, 100% { opacity: 1; } }
+@keyframes m-open { 0%, 37.9% { opacity: 0; } 38%, 50% { opacity: 1; } 50.1%, 100% { opacity: 0; } }
+@keyframes m-blink {
+  0%, 18% { transform: scaleY(1); } 21% { transform: scaleY(.08); } 24%, 36% { transform: scaleY(1); }
+  39%, 49% { transform: scaleY(.5); } 52%, 68% { transform: scaleY(1); } 71% { transform: scaleY(.08); } 74%, 100% { transform: scaleY(1); }
+}
+@keyframes m-look {
+  0%, 52% { transform: translate(0, 0); } 56%, 62% { transform: translate(3px, -1px); }
+  66%, 74% { transform: translate(-3px, 0); } 78%, 100% { transform: translate(0, 0); }
+}
+@keyframes m-cheek { 0%, 36%, 52%, 100% { transform: scale(1); } 39%, 49% { transform: scale(1.28); } }
+@keyframes m-wave { from { transform: rotate(-5deg); } to { transform: rotate(8deg); } }
+@keyframes m-sway { from { transform: rotate(-5deg); } to { transform: rotate(6deg); } }
+
+/* bấm vào linh vật: cười toe, nhảy hai nhịp, vẫy tay */
+.is-cheer .m-smile { opacity: 0; animation: none; }
+.is-cheer .m-open { opacity: 1; animation: none; }
+.is-cheer .m-eye { animation: none; transform: scaleY(.5); }
+.is-cheer .m-cheek { animation: none; transform: scale(1.28); }
+.is-cheer .m-jump { animation: m-hop .5s ease-out 2; }
+.is-cheer .m-arm-l, .is-cheer .m-arm-r { animation: m-wave .22s ease-in-out infinite alternate; }
+@keyframes m-hop { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-16px); } }
+.mascot-wrap, .mascot-small { cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-wrap, .mascot-small .mascot, .mascot *, .mascot-wrap .santa-hat { animation: none !important; }
+  .m-open { opacity: 0 !important; }
+}
