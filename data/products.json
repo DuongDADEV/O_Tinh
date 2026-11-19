@@ -131,6 +131,52 @@
         "Chưa quản lý tồn kho, không thay phần mềm bán hàng hay hoá đơn điện tử"
       ],
       "tags": ["quán cà phê", "thu chi", "lãi lỗ"]
+    },
+    {
+      "id": "OT04",
+      "slug": "so-chi-tieu-ca-nhan",
+      "status": "selling",
+      "order": 4,
+      "theme": "green",
+      "badge": "Mới",
+      "name": "Sổ chi tiêu cá nhân",
+      "audience": "nguoi-di-lam",
+      "tagline": "Ghi mỗi khoản chi trong vài giây. Cuối tháng biết tiền đã đi đâu.",
+      "description": "Sổ chi tiêu cho người đi làm. Ghi mỗi khoản 1 dòng, file tự gom theo tháng, so với ngân sách và tháng trước, chỉ ra mục nào đang vượt.",
+      "price": 59000,
+      "compareAtPrice": 99000,
+      "image": "images/OT04-so-chi-tieu-ca-nhan.webp",
+      "imageFallback": "images/OT04-so-chi-tieu-ca-nhan.png",
+      "imageAlt": "Minh hoạ mẫu Sổ chi tiêu cá nhân: tab Xem lại tháng với đã chi, ngân sách, còn lại, bảng chi theo danh mục và biểu đồ tròn",
+      "video": null,
+      "videoPoster": null,
+      "demoUrl": null,
+      "benefits": [
+        "Ghi 1 dòng là xong: chọn danh mục và cách trả từ danh sách, cột Nhóm và Tháng tự điền.",
+        "Xem lại tháng bất kỳ: đã chi, ngân sách, còn lại, so với tháng trước, trung bình mỗi ngày.",
+        "Danh sách các khoản đã chi trong tháng, mới nhất ở trên, lọc theo danh mục.",
+        "Đặt ngân sách cho từng danh mục, mục nào vượt hiện màu đỏ.",
+        "Chia khoản chi thành Cần thiết và Muốn có, biết nên cắt ở đâu.",
+        "Tổng kết năm: bảng 12 tháng theo danh mục, biểu đồ tổng chi, số tiền để dành được mỗi tháng."
+      ],
+      "includes": [
+        "5 tab: Bắt đầu, Sổ chi tiêu, Xem lại tháng, Tổng kết năm, Cài đặt",
+        "13 danh mục có sẵn, sửa hoặc thêm tới 20 danh mục",
+        "Biểu đồ tròn theo danh mục, biểu đồ chi theo ngày, biểu đồ tổng chi theo tháng",
+        "Dữ liệu mẫu 2 tháng để xem thử, hướng dẫn 4 bước trong file"
+      ],
+      "limits": [
+        "Nhập tay từng khoản, không tự lấy giao dịch từ ngân hàng hay ví điện tử.",
+        "Thu nhập nhập 1 số cố định mỗi tháng ở tab Cài đặt, chưa tách theo nguồn thu.",
+        "Dùng cho 1 người, tiền VNĐ.",
+        "Sẵn khoảng 1.000 dòng ghi chép, cần thêm thì chèn dòng.",
+        "Ghi trên điện thoại bằng app Google Sheets được; biểu đồ xem rõ hơn trên máy tính."
+      ],
+      "tags": [
+        "chi tiêu",
+        "cá nhân",
+        "ngân sách"
+      ]
     }
   ],
   "bundles": [
@@ -143,6 +189,19 @@
       "price": 129000,
       "compareAtPrice": 218000,
       "note": "Việc cá nhân + việc của team"
+    },
+    {
+      "id": "CB02",
+      "slug": "bo-ke-hoach-chi-tieu-ca-nhan",
+      "status": "selling",
+      "name": "Bộ kế hoạch & chi tiêu cá nhân",
+      "items": [
+        "OT01",
+        "OT04"
+      ],
+      "price": 109000,
+      "compareAtPrice": 128000,
+      "note": "Kế hoạch tuần và quản lý tiền cho người đi làm, mỗi tuần biết việc cần làm và tiền đã tiêu."
     }
   ]
 }
